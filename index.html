@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>मोरया ग्रुप गणपती मंडळ - सर्व्हिस ॲप</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #fcf8f2; }
+        .mandal-orange { background-color: #b83214; }
+        .mandal-border { border-color: #b83214; }
+        .text-orange-mandal { color: #b83214; }
+    </style>
+</head>
+<body class="pb-12">
+
+    <!-- Header -->
+    <nav class="mandal-orange text-white p-4 shadow-lg sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full border-2 border-amber-400 overflow-hidden bg-black flex items-center justify-center font-bold text-amber-400 text-[10px] text-center">
+                    डांबाखालचा गणपती
+                </div>
+                <div>
+                    <h1 class="text-base font-bold leading-tight">मोरया ग्रुप गणपती मंडळ</h1>
+                    <p class="text-[10px] text-amber-200">स्थापना २०१४ | सार्वजनिक उत्सव</p>
+                </div>
+            </div>
+            <button onclick="shareReferLink()" class="bg-amber-500 hover:bg-amber-600 text-black px-2.5 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1">
+                <i class="fa-solid fa-user-plus"></i> मेंबर रेफर करा
+            </button>
+        </div>
+    </nav>
+
+    <div class="max-w-4xl mx-auto px-4 mt-5 space-y-5">
+
+        <!-- Financial Year Selector & Start New Year Section -->
+        <div class="bg-white p-3 rounded-xl shadow-sm border flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <label class="text-xs font-bold text-gray-700">वर्ष निवडा (Year):</label>
+                <select id="yearSelector" onchange="changeYear(this.value)" class="text-xs font-bold border rounded p-1 text-orange-mandal bg-amber-50">
+                    <option value="2026-27" selected>2026-27 (चालू वर्ष)</option>
+                    <option value="2025-26">2025-26</option>
+                    <option value="2024-25">2024-25</option>
+                </select>
+            </div>
+            
+            <!-- Only Admin Can Start New Year -->
+            <button id="btnNewYear" onclick="startNewFinancialYear()" class="hidden bg-red-600 text-white px-2 py-1 rounded text-[11px] font-bold shadow hover:bg-red-700">
+                <i class="fa-solid fa-arrows-rotate"></i> नवीन वर्ष सुरू करा
+            </button>
+        </div>
+
+        <!-- Role Access Toggle (Demo Only) -->
+        <div class="bg-amber-50 border-l-4 border-amber-500 p-2.5 rounded-r-xl flex items-center justify-between text-xs text-amber-900">
+            <div>
+                <span class="font-bold">अधिकार रोल:</span> <span id="userRoleBadge" class="bg-amber-200 px-2 py-0.5 rounded font-bold">Member (View Only)</span>
+            </div>
+            <button onclick="toggleAdminRole()" class="text-blue-600 underline font-semibold text-[11px]">रोल बदला (अध्यक्ष/खजिनदार)</button>
+        </div>
+
+        <!-- Financial Summary Cards -->
+        <div class="grid grid-cols-4 gap-2 text-center">
+            <div class="bg-white p-2.5 rounded-xl shadow border-t-4 border-blue-500">
+                <p class="text-[10px] text-gray-500 font-bold">मागील शिल्लक</p>
+                <p class="text-xs font-extrabold text-blue-600 mt-1" id="openingBalance">₹ ०</p>
+            </div>
+            <div class="bg-white p-2.5 rounded-xl shadow border-t-4 border-emerald-500">
+                <p class="text-[10px] text-gray-500 font-bold">नवीन जमा</p>
+                <p class="text-xs font-extrabold text-emerald-600 mt-1" id="totalFund">₹ ०</p>
+            </div>
+            <div class="bg-white p-2.5 rounded-xl shadow border-t-4 border-rose-500">
+                <p class="text-[10px] text-gray-500 font-bold">एकूण खर्च</p>
+                <p class="text-xs font-extrabold text-rose-600 mt-1" id="totalExpenses">₹ ०</p>
+            </div>
+            <div class="bg-white p-2.5 rounded-xl shadow border-t-4 border-amber-500">
+                <p class="text-[10px] text-gray-500 font-bold">निव्वळ शिल्लक</p>
+                <p class="text-xs font-extrabold text-amber-600 mt-1" id="netBalance">₹ ०</p>
+            </div>
+        </div>
+
+        <!-- Admin Only Panel for Adding Vargani & Expenses -->
+        <div id="adminPanel" class="hidden bg-white p-4 rounded-2xl shadow border mandal-border space-y-4">
+            <h2 class="font-bold text-xs text-orange-mandal border-b pb-2 flex items-center gap-1">
+                <i class="fa-solid fa-user-shield"></i> अध्यक्ष / उपाध्यक्ष / खजिनदार पॅनेल
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Add Vargani -->
+                <form onsubmit="addVargani(event)" class="space-y-2 border-r pr-0 md:pr-3">
+                    <p class="font-bold text-[11px] text-emerald-700">+ वर्गणी जमा करा</p>
+                    <input type="text" id="mName" placeholder="सभासदाचे नाव" required class="w-full text-xs p-1.5 border rounded">
+                    <div class="grid grid-cols-2 gap-2">
+                        <select id="vType" class="text-xs p-1.5 border rounded">
+                            <option value="मासिक बीशी">मासिक बीशी</option>
+                            <option value="One-Time">One-Time वर्गणी</option>
+                        </select>
+                        <input type="number" id="vAmount" placeholder="रक्कम ₹" required class="text-xs p-1.5 border rounded">
+                    </div>
+                    <input type="tel" id="vPhone" placeholder="WhatsApp नंबर" required class="w-full text-xs p-1.5 border rounded">
+                    <button type="submit" class="w-full bg-emerald-600 text-white text-xs font-bold py-1.5 rounded shadow">वर्गणी जमा + WhatsApp पावती</button>
+                </form>
+
+                <!-- Add Expense -->
+                <form onsubmit="addExpense(event)" class="space-y-2">
+                    <p class="font-bold text-[11px] text-rose-700">- मंडळ खर्च नोंदवा</p>
+                    <input type="text" id="expName" placeholder="खर्चाचा तपशील (उदा. मंडप / डेकोरेशन)" required class="w-full text-xs p-1.5 border rounded">
+                    <input type="number" id="expAmount" placeholder="रक्कम ₹" required class="w-full text-xs p-1.5 border rounded">
+                    <button type="submit" class="w-full bg-rose-600 text-white text-xs font-bold py-1.5 rounded shadow">खर्च ॲड करा</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Transactions History -->
+        <div class="bg-white p-4 rounded-2xl shadow border space-y-3">
+            <h3 class="font-bold text-xs text-orange-mandal">वर्ष <span id="currentYearTitle">2026-27</span> चा जमा-खर्च तपशील</h3>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs border-collapse">
+                    <thead>
+                        <tr class="bg-amber-50 text-amber-900 border-b">
+                            <th class="p-2">नाव / तपशील</th>
+                            <th class="p-2">प्रकार</th>
+                            <th class="p-2">रक्कम</th>
+                            <th class="p-2 text-center">पावती</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transactionTable">
+                        <!-- Dynamic Records Will Show Here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let isAdmin = false;
+        let selectedYear = "2026-27";
+
+        // Local Storage Multi-Year Memory
+        let yearData = JSON.getItem('morya_year_data') ? JSON.parse(localStorage.getItem('morya_year_data')) : {
+            "2026-27": { openingBalance: 15000, collections: [], expenses: [] }
+        };
+
+        function renderData() {
+            document.getElementById('currentYearTitle').innerText = selectedYear;
+            const current = yearData[selectedYear] || { openingBalance: 0, collections: [], expenses: [] };
+
+            let totalCol = current.collections.reduce((sum, item) => sum + Number(item.amount), 0);
+            let totalExp = current.expenses.reduce((sum, item) => sum + Number(item.amount), 0);
+            let net = current.openingBalance + totalCol - totalExp;
+
+            document.getElementById('openingBalance').innerText = `₹ ${current.openingBalance}`;
+            document.getElementById('totalFund').innerText = `₹ ${totalCol}`;
+            document.getElementById('totalExpenses').innerText = `₹ ${totalExp}`;
+            document.getElementById('netBalance').innerText = `₹ ${net}`;
+
+            let tbody = document.getElementById('transactionTable');
+            tbody.innerHTML = "";
+
+            current.collections.forEach(item => {
+                tbody.innerHTML += `<tr class="border-b">
+                    <td class="p-2 font-semibold">${item.name}</td>
+                    <td class="p-2 text-emerald-600 font-bold">${item.type}</td>
+                    <td class="p-2 font-bold text-emerald-600">+ ₹ ${item.amount}</td>
+                    <td class="p-2 text-center">
+                        <button onclick="shareWhatsAppReceipt('${item.name}', '${item.amount}', '${item.type}')" class="bg-emerald-500 text-white px-2 py-0.5 rounded text-[10px] font-bold">
+                            <i class="fa-brands fa-whatsapp"></i> Share
+                        </button>
+                    </td>
+                </tr>`;
+            });
+
+            current.expenses.forEach(item => {
+                tbody.innerHTML += `<tr class="border-b bg-rose-50/30">
+                    <td class="p-2 font-semibold">${item.name}</td>
+                    <td class="p-2 text-rose-600 font-bold">मंडळ खर्च</td>
+                    <td class="p-2 font-bold text-rose-600">- ₹ ${item.amount}</td>
+                    <td class="p-2 text-center text-gray-400 text-[10px]">Bill Proof</td>
+                </tr>`;
+            });
+        }
+
+        function toggleAdminRole() {
+            isAdmin = !isAdmin;
+            document.getElementById('adminPanel').classList.toggle('hidden', !isAdmin);
+            document.getElementById('btnNewYear').classList.toggle('hidden', !isAdmin);
+            document.getElementById('userRoleBadge').innerText = isAdmin ? "अध्यक्ष/खजिनदार (Admin)" : "Member (View Only)";
+        }
+
+        function addVargani(e) {
+            e.preventDefault();
+            let name = document.getElementById('mName').value;
+            let type = document.getElementById('vType').value;
+            let amount = Number(document.getElementById('vAmount').value);
+            let phone = document.getElementById('vPhone').value;
+
+            yearData[selectedYear].collections.push({ name, type, amount, phone });
+            localStorage.setItem('morya_year_data', JSON.stringify(yearData));
+            renderData();
+
+            // Direct WhatsApp Receipt
+            const msg = encodeURIComponent(`*मोरया ग्रुप गणपती मंडळ (डांबाखालचा गणपती)*\n\n*वर्गणी पावती*\n---------------------------\n*नाव:* ${name}\n*प्रकार:* ${type}\n*जमा रक्कम:* ₹ ${amount}/-\n*वर्ष:* ${selectedYear}\n---------------------------\nधन्यवाद! गणपती बाप्पा मोरया! 🚩`);
+            window.open(`https://wa.me/91${phone}?text=${msg}`, '_blank');
+        }
+
+        function addExpense(e) {
+            e.preventDefault();
+            let name = document.getElementById('expName').value;
+            let amount = Number(document.getElementById('expAmount').value);
+
+            yearData[selectedYear].expenses.push({ name, amount });
+            localStorage.setItem('morya_year_data', JSON.stringify(yearData));
+            renderData();
+        }
+
+        function startNewFinancialYear() {
+            let nextYear = prompt("नवीन वर्षाचे नाव टाका (उदा. 2027-28):");
+            if (!nextYear) return;
+
+            // Calculate current net balance to carry forward
+            let current = yearData[selectedYear];
+            let totalCol = current.collections.reduce((sum, item) => sum + Number(item.amount), 0);
+            let totalExp = current.expenses.reduce((sum, item) => sum + Number(item.amount), 0);
+            let closingBalance = current.openingBalance + totalCol - totalExp;
+
+            // Set new year with carried forward balance
+            yearData[nextYear] = {
+                openingBalance: closingBalance,
+                collections: [],
+                expenses: []
+            };
+
+            localStorage.setItem('morya_year_data', JSON.stringify(yearData));
+            
+            // Add option to select
+            let select = document.getElementById('yearSelector');
+            let opt = document.createElement('option');
+            opt.value = nextYear;
+            opt.innerText = `${nextYear} (चालू वर्ष)`;
+            select.appendChild(opt);
+            select.value = nextYear;
+            
+            changeYear(nextYear);
+            alert(`नवीन वर्ष ${nextYear} यशस्वीरीत्या सुरू झाले! मागील शिल्लक ₹${closingBalance} नवीन वर्षात जमा झाली आहे.`);
+        }
+
+        function changeYear(yr) {
+            selectedYear = yr;
+            renderData();
+        }
+
+        function shareReferLink() {
+            const inviteMsg = encodeURIComponent("जय गणेश! मोरया ग्रुप गणपती मंडळ (डांबाखालचा गणपती) मध्ये सामील होण्यासाठी खालील लिंकवर क्लिक करा:\nhttps://moryagroup.org/join");
+            window.open(`https://wa.me/?text=${inviteMsg}`, '_blank');
+        }
+
+        function shareWhatsAppReceipt(name, amount, type) {
+            const receiptMsg = encodeURIComponent(`*मोरया ग्रुप गणपती मंडळ (डांबाखालचा गणपती)*\n\n*वर्गणी पावती*\n---------------------------\n*नाव:* ${name}\n*प्रकार:* ${type}\n*जमा रक्कम:* ₹ ${amount}/-\n---------------------------\nगणपती बाप्पा मोरया! 🚩`);
+            window.open(`https://wa.me/?text=${receiptMsg}`, '_blank');
+        }
+
+        renderData();
+    </script>
+</body>
+</html>
