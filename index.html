@@ -1,0 +1,2989 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>डांबाखालचा गणपती - मोरया ग्रुप</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,"Noto Sans Devanagari",sans-serif;
+  background:#f5f3fb;
+  color:#222;
+}
+
+header{
+  background:linear-gradient(135deg,#4b16b8,#7b35e8);
+  color:white;
+  padding:18px;
+  position:sticky;
+  top:0;
+  z-index:20;
+  box-shadow:0 4px 15px #0003;
+}
+
+.header{
+  max-width:1000px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.logo{
+  width:65px;
+  height:65px;
+  border-radius:50%;
+  object-fit:cover;
+  background:white;
+  border:3px solid white;
+}
+
+.header h2{
+  margin:0;
+  font-size:21px;
+}
+
+.header p{
+  margin:4px 0 0;
+  font-size:13px;
+  opacity:.9;
+}
+
+.container{
+  max-width:1000px;
+  margin:auto;
+  padding:15px 15px 90px;
+}
+
+.card{
+  background:white;
+  border-radius:18px;
+  padding:17px;
+  margin-bottom:15px;
+  box-shadow:0 4px 18px #39226d12;
+}
+
+.dashboard{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.box{
+  background:white;
+  padding:15px;
+  border-radius:16px;
+  box-shadow:0 3px 15px #0000000c;
+}
+
+.box h4{
+  margin:0;
+  color:#777;
+  font-size:12px;
+}
+
+.amount{
+  font-size:23px;
+  font-weight:bold;
+  margin-top:6px;
+}
+
+.green{color:#0b9b57}
+.red{color:#df2945}
+.orange{color:#ed8417}
+.purple{color:#5b20c9}
+
+button{
+  border:0;
+  padding:11px 15px;
+  border-radius:11px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.btn-green{
+  background:#0ca65d;
+  color:white;
+}
+
+.btn-red{
+  background:#df2945;
+  color:white;
+}
+
+.btn-purple{
+  background:#5d25d7;
+  color:white;
+}
+
+.btn-light{
+  background:#eee9ff;
+  color:#5420c4;
+}
+
+.btn-gray{
+  background:#eee;
+}
+
+.buttons{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.title{
+  font-size:17px;
+  font-weight:bold;
+  margin-bottom:12px;
+}
+
+.person{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:11px 0;
+  border-bottom:1px solid #eee;
+}
+
+.avatar{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:#eee8ff;
+  color:#5720c8;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+}
+
+.person-info{
+  flex:1;
+}
+
+.small{
+  font-size:12px;
+  color:#777;
+}
+
+.badge{
+  padding:4px 8px;
+  border-radius:20px;
+  font-size:11px;
+  background:#eee8ff;
+  color:#5720c8;
+}
+
+.badge-green{
+  background:#dff8eb;
+  color:#087c45;
+}
+
+.badge-red{
+  background:#ffe1e6;
+  color:#bd1932;
+}
+
+input,select,textarea{
+  width:100%;
+  padding:11px;
+  border:1px solid #ddd5ea;
+  border-radius:10px;
+  margin-top:5px;
+  outline:none;
+}
+
+label{
+  display:block;
+  font-size:12px;
+  font-weight:bold;
+  color:#666;
+  margin-top:10px;
+}
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:#0008;
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+  z-index:100;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  background:white;
+  width:min(650px,100%);
+  max-height:92vh;
+  overflow:auto;
+  border-radius:22px 22px 0 0;
+  padding:20px;
+}
+
+.modal-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:12px;
+}
+
+th,td{
+  padding:9px;
+  border-bottom:1px solid #eee;
+  text-align:left;
+}
+
+th{
+  background:#f5f1ff;
+}
+
+.nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:white;
+  display:flex;
+  justify-content:center;
+  border-top:1px solid #ddd;
+  z-index:50;
+}
+
+.nav button{
+  flex:1;
+  max-width:200px;
+  background:white;
+  color:#777;
+  border-radius:0;
+  padding:10px 3px;
+}
+
+.nav button.active{
+  color:#5b20c9;
+  font-weight:bold;
+}
+
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
+
+.notice{
+  background:#fff5d9;
+  color:#745500;
+  padding:12px;
+  border-radius:11px;
+  font-size:12px;
+  margin:10px 0;
+}
+
+.empty{
+  text-align:center;
+  color:#888;
+  padding:25px;
+}
+
+.login{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#4213ae,#8b45f4);
+  padding:20px;
+}
+
+.login-box{
+  background:white;
+  width:min(420px,100%);
+  border-radius:25px;
+  padding:25px;
+  box-shadow:0 20px 60px #0005;
+}
+
+.login-logo{
+  width:100px;
+  height:100px;
+  border-radius:50%;
+  display:block;
+  margin:auto;
+  object-fit:cover;
+}
+
+.center{text-align:center}
+
+.hidden{
+  display:none!important;
+}
+
+.actions{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+}
+
+hr{
+  border:0;
+  border-top:1px solid #eee;
+  margin:15px 0;
+}
+
+@media(min-width:700px){
+  .dashboard{
+    grid-template-columns:repeat(4,1fr);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div id="loginPage" class="login">
+
+<div class="login-box">
+
+<img id="loginLogo"
+class="login-logo"
+src=""
+alt="Mandal Logo">
+
+<h2 class="center" id="loginTitle">
+डांबाखालचा गणपती
+</h2>
+
+<p class="center small">
+मोरया ग्रुप • कवठे पीरान
+</p>
+
+<label>Login Type</label>
+
+<select id="loginType">
+<option value="member">Member / सभासद</option>
+<option value="admin">Admin</option>
+</select>
+
+<label>Password</label>
+
+<input
+id="loginPassword"
+type="password"
+placeholder="Password">
+
+<button
+class="btn-purple"
+style="width:100%;margin-top:15px"
+onclick="login()">
+
+Login
+
+</button>
+
+<p class="small center">
+Member ला फक्त माहिती दिसेल.
+</p>
+
+</div>
+
+</div>
+
+
+<!-- MAIN WEBSITE -->
+<div id="website" class="hidden">
+
+<header>
+
+<div class="header">
+
+<img
+id="headerLogo"
+class="logo"
+src=""
+alt="Logo">
+
+<div>
+
+<h2 id="mandalName">
+डांबाखालचा गणपती
+</h2>
+
+<p>
+मोरया ग्रुप • कवठे पीरान •
+<span id="currentYear"></span>
+</p>
+
+</div>
+
+</div>
+
+</header>
+
+
+<div class="container">
+
+
+<!-- HOME -->
+<section id="homePage" class="page active">
+
+<div class="card">
+
+<div class="title">
+📊 मंडळाचा आर्थिक आढावा
+</div>
+
+<div class="dashboard">
+
+<div class="box">
+<h4>एकूण वर्गणी जमा</h4>
+<div class="amount green" id="totalCollection">
+₹0
+</div>
+</div>
+
+<div class="box">
+<h4>एकूण खर्च</h4>
+<div class="amount red" id="totalExpense">
+₹0
+</div>
+</div>
+
+<div class="box">
+<h4>10% परतावा</h4>
+<div class="amount orange" id="interestAmount">
+₹0
+</div>
+</div>
+
+<div class="box">
+<h4>शिल्लक निधी</h4>
+<div class="amount purple" id="balance">
+₹0
+</div>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="title">
+⚡ Quick Actions
+</div>
+
+<div class="buttons">
+
+<button
+class="btn-green adminOnly"
+onclick="openCollection()">
+＋ वर्गणी जमा
+</button>
+
+<button
+class="btn-red adminOnly"
+onclick="openExpense()">
+＋ खर्च
+</button>
+
+<button
+class="btn-purple"
+onclick="showPage('membersPage')">
+👥 सभासद
+</button>
+
+<button
+class="btn-light"
+onclick="showPage('reportPage')">
+📊 रिपोर्ट
+</button>
+
+</div>
+
+</div>
+
+
+<!-- OFFICERS -->
+
+<div class="card">
+
+<div class="title">
+👑 मंडळाचे पदाधिकारी
+</div>
+
+<div id="officers"></div>
+
+<button
+class="btn-light adminOnly"
+onclick="openOfficerModal()">
+✏️ पदाधिकारी बदल
+</button>
+
+</div>
+
+
+<!-- RECENT -->
+
+<div class="card">
+
+<div class="title">
+🧾 अलीकडील वर्गणी
+</div>
+
+<div id="recentPayments"></div>
+
+</div>
+
+</section>
+
+
+
+<!-- MEMBERS -->
+
+<section id="membersPage" class="page">
+
+<div class="card">
+
+<div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+
+<div>
+
+<div class="title">
+👥 सभासद
+</div>
+
+<div class="small">
+Monthly / One-Time / Both
+</div>
+
+</div>
+
+<button
+class="btn-purple adminOnly"
+onclick="openMemberModal()">
+
+＋ Add
+
+</button>
+
+</div>
+
+<input
+id="memberSearch"
+placeholder="सभासद शोधा..."
+oninput="renderMembers()">
+
+<div id="membersList"></div>
+
+</div>
+
+
+<!-- REFERRAL -->
+
+<div class="card">
+
+<div class="title">
+🔗 Member Referral
+</div>
+
+<p class="small">
+नवीन व्यक्तीला हा link पाठवा. तो/ती Join Request पाठवू शकतो.
+</p>
+
+<div class="buttons">
+
+<button
+class="btn-green"
+onclick="shareReferral()">
+WhatsApp Invite
+</button>
+
+<button
+class="btn-light"
+onclick="copyReferral()">
+Copy Link
+</button>
+
+</div>
+
+</div>
+
+
+<!-- REQUESTS -->
+
+<div class="card adminOnly">
+
+<div class="title">
+📨 Join Requests
+</div>
+
+<div id="requests"></div>
+
+</div>
+
+</section>
+
+
+
+<!-- REPORT -->
+
+<section id="reportPage" class="page">
+
+<div class="card">
+
+<div class="title">
+📊 वार्षिक रिपोर्ट
+</div>
+
+<div id="reportSummary"></div>
+
+<button
+class="btn-purple"
+onclick="printReport()">
+🖨️ Print / PDF
+</button>
+
+</div>
+
+
+<div class="card">
+
+<div class="title">
+💰 वर्गणीची नोंद
+</div>
+
+<div style="overflow:auto">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>तारीख</th>
+<th>नाव</th>
+<th>रक्कम</th>
+<th>प्रकार</th>
+<th>जमा करणारे</th>
+
+</tr>
+
+</thead>
+
+<tbody id="collectionTable"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="title">
+🔴 खर्चाची नोंद
+</div>
+
+<div style="overflow:auto">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>तारीख</th>
+<th>विवरण</th>
+<th>रक्कम</th>
+<th>नोंद करणारे</th>
+
+</tr>
+
+</thead>
+
+<tbody id="expenseTable"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- HISTORY -->
+
+<section id="historyPage" class="page">
+
+<div class="card">
+
+<div class="title">
+🕐 Activity History
+</div>
+
+<div id="historyList"></div>
+
+</div>
+
+</section>
+
+
+
+<!-- SETTINGS -->
+
+<section id="settingsPage" class="page">
+
+<div class="card">
+
+<div class="title">
+⚙️ मंडळ Settings
+</div>
+
+<label>
+मंडळाचे नाव
+</label>
+
+<input
+id="settingName">
+
+<label>
+गाव / ठिकाण
+</label>
+
+<input
+id="settingPlace">
+
+<label>
+मासिक ठरलेली वर्गणी
+</label>
+
+<input
+id="settingMonthly"
+type="number">
+
+<label>
+वर्ष
+</label>
+
+<input
+id="settingYear"
+type="number">
+
+<label>
+परतावा
+</label>
+
+<select id="settingInterest">
+
+<option value="10">10%</option>
+<option value="5">5%</option>
+<option value="0">0%</option>
+
+</select>
+
+<label>
+Ganpati Logo / WhatsApp DP
+</label>
+
+<input
+id="logoUpload"
+type="file"
+accept="image/*">
+
+<br><br>
+
+<div class="actions">
+
+<button
+class="btn-purple"
+onclick="saveSettings()">
+Save Settings
+</button>
+
+<button
+class="btn-red"
+onclick="startNewYear()">
+＋ नवीन वर्ष
+</button>
+
+</div>
+
+<hr>
+
+<div class="title">
+🔐 Admin Password
+</div>
+
+<button
+class="btn-light"
+onclick="changePassword()">
+Password Change
+</button>
+
+</div>
+
+</section>
+
+</div>
+
+
+<!-- NAVIGATION -->
+
+<div class="nav">
+
+<button
+class="active"
+onclick="nav(this,'homePage')">
+🏠<br>Home
+</button>
+
+<button
+onclick="nav(this,'membersPage')">
+👥<br>Members
+</button>
+
+<button
+onclick="nav(this,'reportPage')">
+📊<br>Report
+</button>
+
+<button
+onclick="nav(this,'historyPage')">
+🧾<br>History
+</button>
+
+<button
+onclick="nav(this,'settingsPage')">
+⚙️<br>Settings
+</button>
+
+</div>
+
+</div>
+
+
+
+<!-- COLLECTION MODAL -->
+
+<div id="collectionModal" class="modal">
+
+<div class="modal-box">
+
+<div class="modal-header">
+
+<h3>🟢 वर्गणी जमा</h3>
+
+<button
+class="btn-gray"
+onclick="closeModal('collectionModal')">
+✕
+</button>
+
+</div>
+
+<label>सभासद</label>
+
+<select id="paymentMember"></select>
+
+<label>रक्कम</label>
+
+<input
+id="paymentAmount"
+type="number"
+placeholder="उदा. 100">
+
+<label>Payment Type</label>
+
+<select id="paymentType">
+
+<option value="monthly">
+Monthly / मासिक
+</option>
+
+<option value="one-time">
+One-Time / एकरकमी
+</option>
+
+<option value="other">
+Other
+</option>
+
+</select>
+
+<label>तारीख</label>
+
+<input
+id="paymentDate"
+type="date">
+
+<div class="notice">
+
+कमी किंवा जास्त रक्कम भरली तरी actual amount नोंदवली जाईल.
+
+</div>
+
+<button
+class="btn-green"
+onclick="savePayment()">
+
+💰 जमा करा + Receipt
+
+</button>
+
+</div>
+
+</div>
+
+
+
+<!-- EXPENSE MODAL -->
+
+<div id="expenseModal" class="modal">
+
+<div class="modal-box">
+
+<div class="modal-header">
+
+<h3>🔴 खर्च Add</h3>
+
+<button
+class="btn-gray"
+onclick="closeModal('expenseModal')">
+✕
+</button>
+
+</div>
+
+<label>खर्चाचे कारण</label>
+
+<input
+id="expenseDescription"
+placeholder="मंडप / लाईट / प्रसाद">
+
+<label>रक्कम</label>
+
+<input
+id="expenseAmount"
+type="number">
+
+<label>तारीख</label>
+
+<input
+id="expenseDate"
+type="date">
+
+<label>Bill Photo</label>
+
+<input
+id="expensePhoto"
+type="file"
+accept="image/*">
+
+<br><br>
+
+<button
+class="btn-red"
+onclick="saveExpense()">
+
+🔴 खर्च Save करा
+
+</button>
+
+</div>
+
+</div>
+
+
+
+<!-- MEMBER MODAL -->
+
+<div id="memberModal" class="modal">
+
+<div class="modal-box">
+
+<div class="modal-header">
+
+<h3>👤 सभासद Add/Edit</h3>
+
+<button
+class="btn-gray"
+onclick="closeModal('memberModal')">
+✕
+</button>
+
+</div>
+
+<input
+id="editMemberId"
+type="hidden">
+
+<label>नाव</label>
+
+<input
+id="memberName"
+placeholder="पूर्ण नाव">
+
+<label>WhatsApp Mobile</label>
+
+<input
+id="memberPhone"
+placeholder="10 digit number">
+
+<label>Monthly Amount</label>
+
+<input
+id="memberMonthly"
+type="number">
+
+<label>Payment Setting</label>
+
+<select id="memberPaymentMode">
+
+<option value="monthly">
+Monthly
+</option>
+
+<option value="one-time">
+One-Time
+</option>
+
+<option value="both">
+Monthly किंवा One-Time
+</option>
+
+</select>
+
+<br><br>
+
+<button
+class="btn-purple"
+onclick="saveMember()">
+
+Save Member
+
+</button>
+
+</div>
+
+</div>
+
+
+
+<!-- OFFICER MODAL -->
+
+<div id="officerModal" class="modal">
+
+<div class="modal-box">
+
+<div class="modal-header">
+
+<h3>👑 पदाधिकारी Edit</h3>
+
+<button
+class="btn-gray"
+onclick="closeModal('officerModal')">
+✕
+</button>
+
+</div>
+
+<label>अध्यक्ष</label>
+
+<input
+id="chairman"
+value="Atharv Patil">
+
+<label>उपाध्यक्ष</label>
+
+<input
+id="vicePresident"
+value="Pranav Patil">
+
+<label>खजिनदार</label>
+
+<input
+id="treasurer"
+value="Yogesh Madake">
+
+<br>
+
+<button
+class="btn-purple"
+onclick="saveOfficers()">
+
+Save
+
+</button>
+
+</div>
+
+</div>
+
+
+
+<script>
+
+/* =========================================
+   DATABASE - LOCAL STORAGE VERSION
+========================================= */
+
+const STORAGE_KEY="MORYA_GROUP_DATA";
+
+let data=JSON.parse(
+localStorage.getItem(STORAGE_KEY)
+);
+
+if(!data){
+
+data={
+
+settings:{
+name:"डांबाखालचा गणपती",
+place:"मोरया ग्रुप • कवठे पीरान",
+year:new Date().getFullYear(),
+monthly:100,
+interest:10,
+logo:""
+},
+
+officers:{
+chairman:"Atharv Patil",
+vice:"Pranav Patil",
+treasurer:"Yogesh Madake"
+},
+
+adminPassword:"1234",
+
+members:[],
+payments:[],
+expenses:[],
+requests:[],
+history:[]
+
+};
+
+saveData();
+
+}
+
+
+let currentUser="member";
+
+
+/* SAVE */
+
+function saveData(){
+
+localStorage.setItem(
+STORAGE_KEY,
+JSON.stringify(data)
+);
+
+}
+
+
+/* MONEY */
+
+function money(value){
+
+return "₹"+Number(value||0)
+.toLocaleString("en-IN");
+
+}
+
+
+/* ID */
+
+function uid(){
+
+return Date.now().toString(36)+
+Math.random().toString(36).substring(2,8);
+
+}
+
+
+/* ESCAPE */
+
+function esc(value){
+
+return String(value||"")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;");
+
+}
+
+
+/* LOGIN */
+
+function login(){
+
+let type=
+document.getElementById("loginType").value;
+
+let password=
+document.getElementById("loginPassword").value;
+
+if(type==="admin"){
+
+if(password!==data.adminPassword){
+
+alert("❌ Admin password चुकीचा आहे.");
+
+return;
+
+}
+
+currentUser="admin";
+
+}else{
+
+currentUser="member";
+
+}
+
+document
+.getElementById("loginPage")
+.classList.add("hidden");
+
+document
+.getElementById("website")
+.classList.remove("hidden");
+
+applyAdminPermissions();
+
+renderAll();
+
+}
+
+
+/* ADMIN PERMISSION */
+
+function applyAdminPermissions(){
+
+document
+.querySelectorAll(".adminOnly")
+.forEach(el=>{
+
+if(currentUser==="admin"){
+
+el.classList.remove("hidden");
+
+}else{
+
+el.classList.add("hidden");
+
+}
+
+});
+
+}
+
+
+/* PAGE NAVIGATION */
+
+function nav(button,page){
+
+document
+.querySelectorAll(".nav button")
+.forEach(x=>x.classList.remove("active"));
+
+button.classList.add("active");
+
+showPage(page);
+
+}
+
+
+function showPage(page){
+
+document
+.querySelectorAll(".page")
+.forEach(x=>x.classList.remove("active"));
+
+document
+.getElementById(page)
+.classList.add("active");
+
+if(page==="membersPage")
+renderMembers();
+
+if(page==="reportPage")
+renderReports();
+
+if(page==="historyPage")
+renderHistory();
+
+}
+
+
+/* CALCULATE */
+
+function calculate(){
+
+let payments=
+data.payments.filter(
+x=>Number(x.year)===Number(data.settings.year)
+);
+
+let expenses=
+data.expenses.filter(
+x=>Number(x.year)===Number(data.settings.year)
+);
+
+let collection=
+payments.reduce(
+(sum,x)=>sum+Number(x.amount),0
+);
+
+let expense=
+expenses.reduce(
+(sum,x)=>sum+Number(x.amount),0
+);
+
+let interest=
+collection*
+(Number(data.settings.interest)/100);
+
+let fund=
+collection+interest;
+
+let balance=
+fund-expense;
+
+return{
+collection,
+expense,
+interest,
+fund,
+balance
+};
+
+}
+
+
+/* RENDER ALL */
+
+function renderAll(){
+
+document.getElementById("mandalName")
+.textContent=data.settings.name;
+
+document.getElementById("loginTitle")
+.textContent=data.settings.name;
+
+document.getElementById("currentYear")
+.textContent=data.settings.year;
+
+document.getElementById("totalCollection")
+.textContent=money(calculate().collection);
+
+document.getElementById("totalExpense")
+.textContent=money(calculate().expense);
+
+document.getElementById("interestAmount")
+.textContent=money(calculate().interest);
+
+document.getElementById("balance")
+.textContent=money(calculate().balance);
+
+renderLogo();
+
+renderOfficers();
+
+renderRecentPayments();
+
+renderMembers();
+
+renderReports();
+
+renderHistory();
+
+populatePaymentMembers();
+
+}
+
+
+/* LOGO */
+
+function renderLogo(){
+
+let logo=data.settings.logo;
+
+if(!logo){
+
+logo=
+"data:image/svg+xml;charset=utf-8,"+
+encodeURIComponent(
+`<svg xmlns="http://www.w3.org/2000/svg"
+width="200" height="200">
+<circle cx="100" cy="100" r="100"
+fill="#5b20c9"/>
+<text x="100" y="120"
+font-size="65"
+text-anchor="middle"
+fill="white">ॐ</text>
+</svg>`
+);
+
+}
+
+document
+.getElementById("loginLogo")
+.src=logo;
+
+document
+.getElementById("headerLogo")
+.src=logo;
+
+}
+
+
+/* OFFICERS */
+
+function renderOfficers(){
+
+let o=data.officers;
+
+document.getElementById("officers")
+.innerHTML=`
+
+<div class="person">
+
+<div class="avatar">👑</div>
+
+<div class="person-info">
+
+<b>${esc(o.chairman)}</b>
+
+<div class="small">अध्यक्ष</div>
+
+</div>
+
+</div>
+
+
+<div class="person">
+
+<div class="avatar">⭐</div>
+
+<div class="person-info">
+
+<b>${esc(o.vice)}</b>
+
+<div class="small">उपाध्यक्ष</div>
+
+</div>
+
+</div>
+
+
+<div class="person">
+
+<div class="avatar">💰</div>
+
+<div class="person-info">
+
+<b>${esc(o.treasurer)}</b>
+
+<div class="small">खजिनदार</div>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+/* RECENT PAYMENT */
+
+function renderRecentPayments(){
+
+let arr=
+data.payments
+.filter(x=>Number(x.year)===Number(data.settings.year))
+.sort((a,b)=>b.date.localeCompare(a.date))
+.slice(0,8);
+
+let box=
+document.getElementById("recentPayments");
+
+if(!arr.length){
+
+box.innerHTML=
+`<div class="empty">
+अजून वर्गणी जमा झालेली नाही.
+</div>`;
+
+return;
+
+}
+
+box.innerHTML=arr.map(x=>`
+
+<div class="person">
+
+<div class="avatar">
+💰
+</div>
+
+<div class="person-info">
+
+<b>${esc(x.memberName)}</b>
+
+<div class="small">
+${x.date} • ${x.type}
+</div>
+
+</div>
+
+<b class="green">
+${money(x.amount)}
+</b>
+
+</div>
+
+`).join("");
+
+}
+
+
+/* OPEN COLLECTION */
+
+function openCollection(){
+
+if(currentUser!=="admin"){
+
+alert("फक्त Admin वर्गणी जमा करू शकतो.");
+
+return;
+
+}
+
+populatePaymentMembers();
+
+document.getElementById("paymentAmount")
+.value=data.settings.monthly;
+
+document.getElementById("paymentDate")
+.value=new Date().toISOString().slice(0,10);
+
+document
+.getElementById("collectionModal")
+.classList.add("show");
+
+}
+
+
+/* CLOSE */
+
+function closeModal(id){
+
+document
+.getElementById(id)
+.classList.remove("show");
+
+}
+
+
+/* MEMBER SELECT */
+
+function populatePaymentMembers(){
+
+let select=
+document.getElementById("paymentMember");
+
+select.innerHTML=
+`<option value="">सभासद निवडा</option>`+
+data.members.map(m=>
+`<option value="${m.id}">
+${esc(m.name)}
+</option>`
+).join("");
+
+}
+
+
+/* SAVE PAYMENT */
+
+function savePayment(){
+
+let memberId=
+document.getElementById("paymentMember").value;
+
+let amount=
+Number(
+document.getElementById("paymentAmount").value
+);
+
+let type=
+document.getElementById("paymentType").value;
+
+let date=
+document.getElementById("paymentDate").value;
+
+let member=
+data.members.find(
+x=>x.id===memberId
+);
+
+if(!member){
+
+alert("सभासद निवडा.");
+
+return;
+
+}
+
+if(!amount || amount<=0){
+
+alert("योग्य रक्कम भरा.");
+
+return;
+
+}
+
+let payment={
+
+id:uid(),
+
+year:data.settings.year,
+
+date:date,
+
+memberId:member.id,
+
+memberName:member.name,
+
+phone:member.phone,
+
+amount:amount,
+
+type:type,
+
+addedBy:data.officers.treasurer
+
+};
+
+data.payments.push(payment);
+
+data.history.unshift({
+
+date:new Date().toLocaleString("en-IN"),
+
+text:
+`${member.name} कडून ${money(amount)} वर्गणी जमा केली.`
+
+});
+
+saveData();
+
+closeModal("collectionModal");
+
+renderAll();
+
+let send=
+confirm(
+"🧾 Receipt तयार झाली.\nWhatsApp वर पाठवायची का?"
+);
+
+if(send){
+
+sendReceipt(payment);
+
+}
+
+}
+
+
+/* RECEIPT */
+
+function sendReceipt(payment){
+
+if(!payment.phone){
+
+alert(
+"या सभासदाचा WhatsApp/mobile number नाही."
+);
+
+return;
+
+}
+
+let message=
+
+`*${data.settings.name}*
+${data.settings.place}
+
+🧾 *वर्गणी पावती*
+
+पावती क्रमांक: ${payment.id}
+
+तारीख: ${payment.date}
+
+सभासद:
+${payment.memberName}
+
+जमा रक्कम:
+${money(payment.amount)}
+
+प्रकार:
+${payment.type==="monthly"
+?"मासिक वर्गणी"
+:payment.type==="one-time"
+?"एकरकमी वर्गणी"
+:"इतर"}
+
+वर्ष:
+${payment.year}
+
+जमा करणारे:
+${payment.addedBy}
+
+🙏 गणपती बाप्पा मोरया 🚩`;
+
+openWhatsApp(
+payment.phone,
+message
+);
+
+}
+
+
+/* WHATSAPP */
+
+function openWhatsApp(phone,message){
+
+phone=String(phone)
+.replace(/\D/g,"");
+
+if(phone.length===10)
+phone="91"+phone;
+
+window.open(
+"https://wa.me/"+
+phone+
+"?text="+
+encodeURIComponent(message),
+"_blank"
+);
+
+}
+
+
+/* EXPENSE */
+
+function openExpense(){
+
+if(currentUser!=="admin"){
+
+alert("फक्त Admin खर्च add करू शकतो.");
+
+return;
+
+}
+
+document.getElementById("expenseDate")
+.value=new Date().toISOString().slice(0,10);
+
+document
+.getElementById("expenseModal")
+.classList.add("show");
+
+}
+
+
+/* SAVE EXPENSE */
+
+function saveExpense(){
+
+let desc=
+document.getElementById("expenseDescription")
+.value.trim();
+
+let amount=
+Number(
+document.getElementById("expenseAmount").value
+);
+
+let date=
+document.getElementById("expenseDate").value;
+
+if(!desc || !amount){
+
+alert("खर्चाचे कारण आणि रक्कम भरा.");
+
+return;
+
+}
+
+let balance=calculate().balance;
+
+if(amount>balance){
+
+if(!confirm(
+"⚠️ हा खर्च सध्याच्या शिल्लक निधीपेक्षा जास्त आहे. तरी save करायचा?"
+)){
+
+return;
+
+}
+
+}
+
+let expense={
+
+id:uid(),
+
+year:data.settings.year,
+
+date:date,
+
+description:desc,
+
+amount:amount,
+
+addedBy:data.officers.treasurer
+
+};
+
+data.expenses.push(expense);
+
+data.history.unshift({
+
+date:new Date().toLocaleString("en-IN"),
+
+text:
+`खर्च ${money(amount)} — ${desc}`
+
+});
+
+saveData();
+
+closeModal("expenseModal");
+
+renderAll();
+
+}
+
+
+/* MEMBER MODAL */
+
+function openMemberModal(){
+
+if(currentUser!=="admin"){
+
+alert("फक्त Admin member add करू शकतो.");
+
+return;
+
+}
+
+document.getElementById("editMemberId").value="";
+
+document.getElementById("memberName").value="";
+
+document.getElementById("memberPhone").value="";
+
+document.getElementById("memberMonthly")
+.value=data.settings.monthly;
+
+document.getElementById("memberPaymentMode")
+.value="both";
+
+document
+.getElementById("memberModal")
+.classList.add("show");
+
+}
+
+
+/* SAVE MEMBER */
+
+function saveMember(){
+
+let id=
+document.getElementById("editMemberId").value;
+
+let name=
+document.getElementById("memberName")
+.value.trim();
+
+let phone=
+document.getElementById("memberPhone")
+.value.trim();
+
+let monthly=
+Number(
+document.getElementById("memberMonthly")
+.value
+);
+
+let mode=
+document.getElementById("memberPaymentMode")
+.value;
+
+if(!name){
+
+alert("नाव भरा.");
+
+return;
+
+}
+
+if(id){
+
+let member=
+data.members.find(x=>x.id===id);
+
+if(member){
+
+member.name=name;
+
+member.phone=phone;
+
+member.monthly=monthly;
+
+member.mode=mode;
+
+}
+
+}else{
+
+data.members.push({
+
+id:uid(),
+
+name:name,
+
+phone:phone,
+
+monthly:monthly,
+
+mode:mode
+
+});
+
+}
+
+data.history.unshift({
+
+date:new Date().toLocaleString("en-IN"),
+
+text:`सभासद ${name} add/edit केला.`
+
+});
+
+saveData();
+
+closeModal("memberModal");
+
+renderAll();
+
+}
+
+
+/* MEMBERS */
+
+function renderMembers(){
+
+let search=
+(document.getElementById("memberSearch")
+?.value||"").toLowerCase();
+
+let members=
+data.members.filter(m=>
+(m.name+" "+m.phone)
+.toLowerCase()
+.includes(search)
+);
+
+let box=
+document.getElementById("membersList");
+
+if(!members.length){
+
+box.innerHTML=
+`<div class="empty">
+सभासद उपलब्ध नाही.
+</div>`;
+
+return;
+
+}
+
+box.innerHTML=members.map(m=>{
+
+let paid=
+data.payments
+.filter(x=>
+x.memberId===m.id &&
+Number(x.year)===Number(data.settings.year)
+)
+.reduce(
+(sum,x)=>sum+Number(x.amount),0
+);
+
+let due=
+m.mode==="one-time"
+?"One-Time"
+:"Monthly";
+
+return`
+
+<div class="person">
+
+<div class="avatar">
+
+${esc(
+m.name
+.split(" ")
+.map(x=>x[0])
+.slice(0,2)
+.join("")
+.toUpperCase()
+)}
+
+</div>
+
+<div class="person-info">
+
+<b>${esc(m.name)}</b>
+
+<div class="small">
+📱 ${esc(m.phone||"Number नाही")}
+</div>
+
+<div class="small">
+${due} • Monthly ${money(m.monthly)}
+</div>
+
+<span class="badge badge-green">
+जमा ${money(paid)}
+</span>
+
+</div>
+
+<div class="actions">
+
+<button
+class="btn-green"
+onclick="quickPayment('${m.id}')">
+＋
+</button>
+
+<button
+class="btn-light adminOnly"
+onclick="editMember('${m.id}')">
+Edit
+</button>
+
+<button
+class="btn-gray"
+onclick="sendReminder('${m.id}')">
+🔔
+</button>
+
+</div>
+
+</div>
+
+`;
+
+}).join("");
+
+applyAdminPermissions();
+
+}
+
+
+/* QUICK PAYMENT */
+
+function quickPayment(id){
+
+openCollection();
+
+document.getElementById("paymentMember")
+.value=id;
+
+}
+
+
+/* EDIT MEMBER */
+
+function editMember(id){
+
+if(currentUser!=="admin")return;
+
+let m=
+data.members.find(x=>x.id===id);
+
+if(!m)return;
+
+document.getElementById("editMemberId")
+.value=m.id;
+
+document.getElementById("memberName")
+.value=m.name;
+
+document.getElementById("memberPhone")
+.value=m.phone;
+
+document.getElementById("memberMonthly")
+.value=m.monthly;
+
+document.getElementById("memberPaymentMode")
+.value=m.mode;
+
+document
+.getElementById("memberModal")
+.classList.add("show");
+
+}
+
+
+/* REMINDER */
+
+function sendReminder(id){
+
+let m=
+data.members.find(x=>x.id===id);
+
+if(!m)return;
+
+if(!m.phone){
+
+alert("Mobile number नाही.");
+
+return;
+
+}
+
+let paid=
+data.payments
+.filter(x=>
+x.memberId===id &&
+Number(x.year)===Number(data.settings.year)
+)
+.reduce(
+(sum,x)=>sum+Number(x.amount),0
+);
+
+let message=
+
+`🙏 *${data.settings.name}*
+
+नमस्कार ${m.name},
+
+${data.settings.year} सालची मंडळाची वर्गणी जमा करण्याची आठवण.
+
+तुमची ठरलेली वर्गणी:
+${money(m.monthly)}
+
+आतापर्यंत जमा:
+${money(paid)}
+
+कृपया बाकी रक्कम जमा करावी.
+
+गणपती बाप्पा मोरया 🚩`;
+
+openWhatsApp(
+m.phone,
+message
+);
+
+}
+
+
+/* OFFICERS */
+
+function openOfficerModal(){
+
+if(currentUser!=="admin")return;
+
+document.getElementById("chairman")
+.value=data.officers.chairman;
+
+document.getElementById("vicePresident")
+.value=data.officers.vice;
+
+document.getElementById("treasurer")
+.value=data.officers.treasurer;
+
+document
+.getElementById("officerModal")
+.classList.add("show");
+
+}
+
+
+function saveOfficers(){
+
+data.officers.chairman=
+document.getElementById("chairman").value;
+
+data.officers.vice=
+document.getElementById("vicePresident").value;
+
+data.officers.treasurer=
+document.getElementById("treasurer").value;
+
+saveData();
+
+closeModal("officerModal");
+
+renderAll();
+
+}
+
+
+/* REPORT */
+
+function renderReports(){
+
+let t=calculate();
+
+document.getElementById("reportSummary")
+.innerHTML=`
+
+<div class="dashboard">
+
+<div class="box">
+
+<h4>वर्गणी</h4>
+
+<div class="amount green">
+${money(t.collection)}
+</div>
+
+</div>
+
+<div class="box">
+
+<h4>10% परतावा</h4>
+
+<div class="amount orange">
+${money(t.interest)}
+</div>
+
+</div>
+
+<div class="box">
+
+<h4>खर्च</h4>
+
+<div class="amount red">
+${money(t.expense)}
+</div>
+
+</div>
+
+<div class="box">
+
+<h4>शिल्लक</h4>
+
+<div class="amount purple">
+${money(t.balance)}
+</div>
+
+</div>
+
+</div>
+
+<p class="small">
+वर्ष: ${data.settings.year}
+</p>
+
+`;
+
+let payments=
+data.payments
+.filter(x=>Number(x.year)===Number(data.settings.year));
+
+document.getElementById("collectionTable")
+.innerHTML=
+payments.length
+?payments
+.sort((a,b)=>b.date.localeCompare(a.date))
+.map(x=>`
+
+<tr>
+
+<td>${x.date}</td>
+
+<td>${esc(x.memberName)}</td>
+
+<td class="green">
+${money(x.amount)}
+</td>
+
+<td>${x.type}</td>
+
+<td>${esc(x.addedBy)}</td>
+
+</tr>
+
+`).join("")
+:
+`<tr>
+<td colspan="5">No data</td>
+</tr>`;
+
+
+let expenses=
+data.expenses
+.filter(x=>Number(x.year)===Number(data.settings.year));
+
+document.getElementById("expenseTable")
+.innerHTML=
+expenses.length
+?expenses
+.sort((a,b)=>b.date.localeCompare(a.date))
+.map(x=>`
+
+<tr>
+
+<td>${x.date}</td>
+
+<td>${esc(x.description)}</td>
+
+<td class="red">
+${money(x.amount)}
+</td>
+
+<td>${esc(x.addedBy)}</td>
+
+</tr>
+
+`).join("")
+:
+`<tr>
+<td colspan="4">No data</td>
+</tr>`;
+
+}
+
+
+/* HISTORY */
+
+function renderHistory(){
+
+let box=
+document.getElementById("historyList");
+
+if(!data.history.length){
+
+box.innerHTML=
+`<div class="empty">
+Activity नाही.
+</div>`;
+
+return;
+
+}
+
+box.innerHTML=
+data.history
+.slice(0,100)
+.map(x=>`
+
+<div class="person">
+
+<div class="avatar">
+🧾
+</div>
+
+<div class="person-info">
+
+<b>
+${esc(x.text)}
+</b>
+
+<div class="small">
+${esc(x.date)}
+</div>
+
+</div>
+
+</div>
+
+`).join("");
+
+}
+
+
+/* SETTINGS */
+
+function loadSettings(){
+
+document.getElementById("settingName")
+.value=data.settings.name;
+
+document.getElementById("settingPlace")
+.value=data.settings.place;
+
+document.getElementById("settingMonthly")
+.value=data.settings.monthly;
+
+document.getElementById("settingYear")
+.value=data.settings.year;
+
+document.getElementById("settingInterest")
+.value=data.settings.interest;
+
+}
+
+
+/* SAVE SETTINGS */
+
+function saveSettings(){
+
+if(currentUser!=="admin"){
+
+alert("फक्त Admin Settings बदलू शकतो.");
+
+return;
+
+}
+
+data.settings.name=
+document.getElementById("settingName").value;
+
+data.settings.place=
+document.getElementById("settingPlace").value;
+
+data.settings.monthly=
+Number(
+document.getElementById("settingMonthly").value
+);
+
+data.settings.year=
+Number(
+document.getElementById("settingYear").value
+);
+
+data.settings.interest=
+Number(
+document.getElementById("settingInterest").value
+);
+
+let file=
+document.getElementById("logoUpload")
+.files[0];
+
+if(file){
+
+let reader=new FileReader();
+
+reader.onload=function(){
+
+data.settings.logo=
+reader.result;
+
+saveData();
+
+renderAll();
+
+alert("Settings Save झाले.");
+
+};
+
+reader.readAsDataURL(file);
+
+}else{
+
+saveData();
+
+renderAll();
+
+alert("Settings Save झाले.");
+
+}
+
+}
+
+
+/* NEW YEAR */
+
+function startNewYear(){
+
+if(currentUser!=="admin"){
+
+alert("फक्त Admin नवीन वर्ष सुरू करू शकतो.");
+
+return;
+
+}
+
+let oldYear=data.settings.year;
+
+let newYear=
+Number(
+prompt(
+"नवीन वर्ष टाका:",
+oldYear+1
+)
+);
+
+if(!newYear)return;
+
+if(newYear<=oldYear){
+
+alert("नवीन वर्ष मोठे असावे.");
+
+return;
+
+}
+
+if(!confirm(
+`वर्ष ${newYear} सुरू करायचे? जुना ${oldYear} data report मध्ये सुरक्षित राहील.`
+))return;
+
+data.settings.year=newYear;
+
+data.history.unshift({
+
+date:new Date().toLocaleString("en-IN"),
+
+text:`नवीन वर्ष ${newYear} सुरू केले.`
+
+});
+
+saveData();
+
+renderAll();
+
+alert(
+`नवीन वर्ष ${newYear} सुरू झाले.`
+);
+
+}
+
+
+/* PASSWORD */
+
+function changePassword(){
+
+if(currentUser!=="admin")return;
+
+let old=
+prompt("जुना password:");
+
+if(old!==data.adminPassword){
+
+alert("जुना password चुकीचा.");
+
+return;
+
+}
+
+let newPass=
+prompt("नवीन password:");
+
+if(!newPass)return;
+
+data.adminPassword=newPass;
+
+saveData();
+
+alert("✅ Admin password बदलला.");
+
+}
+
+
+/* REFERRAL */
+
+function referralLink(){
+
+return location.href
+.split("#")[0]+"#join";
+
+}
+
+
+function shareReferral(){
+
+let link=referralLink();
+
+let message=
+`${data.settings.name} मध्ये सभासद होण्यासाठी हा link उघडा:
+
+${link}
+
+गणपती बाप्पा मोरया 🚩`;
+
+window.open(
+"https://wa.me/?text="+
+encodeURIComponent(message),
+"_blank"
+);
+
+}
+
+
+function copyReferral(){
+
+navigator.clipboard
+.writeText(referralLink())
+.then(
+()=>alert("Referral link copied.")
+);
+
+}
+
+
+/* JOIN REQUEST */
+
+function checkJoinRequest(){
+
+if(location.hash!=="#join")
+return;
+
+let name=
+prompt("तुमचे पूर्ण नाव:");
+
+if(!name)return;
+
+let phone=
+prompt("WhatsApp Mobile Number:");
+
+data.requests.push({
+
+id:uid(),
+
+name:name,
+
+phone:phone||"",
+
+date:new Date()
+.toISOString()
+.slice(0,10)
+
+});
+
+saveData();
+
+alert(
+"✅ Join Request पाठवली आहे. Admin approve केल्यानंतर तुम्ही member व्हाल."
+);
+
+history.replaceState(
+null,
+"",
+location.pathname
+);
+
+}
+
+
+/* REQUESTS */
+
+function renderRequests(){
+
+let box=
+document.getElementById("requests");
+
+if(!data.requests.length){
+
+box.innerHTML=
+`<div class="empty">
+Pending request नाही.
+</div>`;
+
+return;
+
+}
+
+box.innerHTML=
+data.requests
+.map(r=>`
+
+<div class="person">
+
+<div class="avatar">
+👤
+</div>
+
+<div class="person-info">
+
+<b>${esc(r.name)}</b>
+
+<div class="small">
+📱 ${esc(r.phone)}
+<br>
+${r.date}
+</div>
+
+</div>
+
+<div class="actions">
+
+<button
+class="btn-green"
+onclick="approveRequest('${r.id}')">
+Approve
+</button>
+
+<button
+class="btn-red"
+onclick="rejectRequest('${r.id}')">
+Reject
+</button>
+
+</div>
+
+</div>
+
+`).join("");
+
+}
+
+
+/* APPROVE */
+
+function approveRequest(id){
+
+if(currentUser!=="admin")return;
+
+let r=
+data.requests.find(x=>x.id===id);
+
+if(!r)return;
+
+data.members.push({
+
+id:uid(),
+
+name:r.name,
+
+phone:r.phone,
+
+monthly:data.settings.monthly,
+
+mode:"both"
+
+});
+
+data.requests=
+data.requests.filter(
+x=>x.id!==id
+);
+
+saveData();
+
+renderAll();
+
+}
+
+
+/* REJECT */
+
+function rejectRequest(id){
+
+if(currentUser!=="admin")return;
+
+data.requests=
+data.requests.filter(
+x=>x.id!==id
+);
+
+saveData();
+
+renderAll();
+
+}
+
+
+/* PRINT REPORT */
+
+function printReport(){
+
+let t=calculate();
+
+let win=
+window.open("","_blank");
+
+win.document.write(`
+
+<html>
+
+<head>
+
+<title>
+${esc(data.settings.name)} Report
+</title>
+
+<style>
+
+body{
+font-family:Arial;
+padding:30px;
+}
+
+h1{
+color:#5b20c9;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th,td{
+padding:8px;
+border:1px solid #ddd;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>
+${esc(data.settings.name)}
+</h1>
+
+<p>
+${esc(data.settings.place)}
+<br>
+वर्ष ${data.settings.year}
+</p>
+
+<h2>
+Annual Fund Report
+</h2>
+
+<p>
+
+Total Collection:
+<b>${money(t.collection)}</b>
+<br>
+
+10% Return:
+<b>${money(t.interest)}</b>
+<br>
+
+Total Expense:
+<b>${money(t.expense)}</b>
+<br>
+
+Available Balance:
+<b>${money(t.balance)}</b>
+
+</p>
+
+<h2>
+Collections
+</h2>
+
+<table>
+
+<tr>
+<th>Date</th>
+<th>Member</th>
+<th>Amount</th>
+<th>Type</th>
+</tr>
+
+${data.payments
+.filter(x=>Number(x.year)===Number(data.settings.year))
+.map(x=>`
+
+<tr>
+
+<td>${x.date}</td>
+
+<td>${esc(x.memberName)}</td>
+
+<td>${money(x.amount)}</td>
+
+<td>${x.type}</td>
+
+</tr>
+
+`).join("")}
+
+</table>
+
+
+<h2>
+Expenses
+</h2>
+
+<table>
+
+<tr>
+<th>Date</th>
+<th>Description</th>
+<th>Amount</th>
+</tr>
+
+${data.expenses
+.filter(x=>Number(x.year)===Number(data.settings.year))
+.map(x=>`
+
+<tr>
+
+<td>${x.date}</td>
+
+<td>${esc(x.description)}</td>
+
+<td>${money(x.amount)}</td>
+
+</tr>
+
+`).join("")}
+
+</table>
+
+<script>
+
+window.print();
+
+<\/script>
+
+</body>
+
+</html>
+
+`);
+
+win.document.close();
+
+}
+
+
+/* INITIALIZE */
+
+loadSettings();
+
+checkJoinRequest();
+
+</script>
+
+</body>
+</html>
