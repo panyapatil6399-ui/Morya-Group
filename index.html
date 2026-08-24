@@ -1,0 +1,1881 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>मोरया ग्रुप गणपती मंडळ</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+*{box-sizing:border-box}
+
+body{
+margin:0;
+font-family:"Noto Sans Devanagari","Segoe UI",sans-serif;
+background:
+linear-gradient(#fff9f0dd,#fff9f0dd),
+url("https://images.unsplash.com/photo-1599834562135-b6fc90e642ca?auto=format&fit=crop&w=1200&q=80");
+background-size:cover;
+background-attachment:fixed;
+color:#29221d;
+}
+
+.orange{background:#b83214}
+.text-orange{color:#b83214}
+
+.app{
+max-width:650px;
+margin:auto;
+padding-bottom:90px;
+}
+
+.header{
+background:linear-gradient(135deg,#9f260e,#d94b20);
+color:white;
+padding:18px;
+border-radius:0 0 25px 25px;
+box-shadow:0 5px 20px #0003;
+}
+
+.card{
+background:#fffffff2;
+border-radius:20px;
+padding:16px;
+margin-top:14px;
+box-shadow:0 5px 20px #00000012;
+}
+
+.stat{
+background:white;
+padding:12px 6px;
+border-radius:15px;
+text-align:center;
+box-shadow:0 3px 12px #00000010;
+}
+
+.stat b{
+display:block;
+font-size:18px;
+}
+
+.btn{
+border:0;
+border-radius:12px;
+padding:12px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.green{
+background:#16a34a;
+color:white;
+}
+
+.red{
+background:#dc2626;
+color:white;
+}
+
+.orangeBtn{
+background:#b83214;
+color:white;
+}
+
+.gray{
+background:#f1f1f1;
+}
+
+.input{
+width:100%;
+padding:12px;
+border:1px solid #ddd;
+border-radius:11px;
+margin-top:5px;
+outline:none;
+}
+
+label{
+font-size:12px;
+font-weight:bold;
+color:#666;
+}
+
+.row{
+display:flex;
+justify-content:space-between;
+gap:10px;
+padding:12px 0;
+border-bottom:1px solid #eee;
+}
+
+.row:last-child{border-bottom:0}
+
+.nav{
+position:fixed;
+bottom:0;
+left:50%;
+transform:translateX(-50%);
+width:min(650px,100%);
+height:70px;
+background:white;
+display:grid;
+grid-template-columns:repeat(5,1fr);
+box-shadow:0 -3px 15px #0002;
+z-index:50;
+}
+
+.nav button{
+border:0;
+background:white;
+font-size:11px;
+color:#777;
+}
+
+.nav button.active{
+color:#b83214;
+font-weight:bold;
+}
+
+.nav i{
+display:block;
+font-size:20px;
+margin-bottom:4px;
+}
+
+.page{display:none}
+.page.active{display:block}
+
+.modal{
+display:none;
+position:fixed;
+inset:0;
+background:#0008;
+z-index:100;
+align-items:flex-end;
+}
+
+.modal.show{display:flex}
+
+.sheet{
+background:white;
+width:min(650px,100%);
+margin:auto;
+padding:20px;
+border-radius:25px 25px 0 0;
+max-height:92vh;
+overflow:auto;
+}
+
+.badge{
+padding:5px 8px;
+border-radius:8px;
+font-size:10px;
+font-weight:bold;
+}
+
+.login{
+position:fixed;
+inset:0;
+background:linear-gradient(135deg,#9f260e,#e55a26);
+z-index:200;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:20px;
+}
+
+.loginBox{
+background:white;
+width:min(420px,100%);
+padding:25px;
+border-radius:25px;
+box-shadow:0 15px 50px #0005;
+}
+
+.hidden{display:none!important}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+
+<div id="loginScreen" class="login">
+
+<div class="loginBox">
+
+<div class="text-center">
+
+<div class="text-5xl mb-3">🙏</div>
+
+<h1 class="text-xl font-bold text-orange">
+मोरया ग्रुप
+</h1>
+
+<p class="text-xs text-gray-500">
+डांबाखालचा गणपती मंडळ<br>
+कवठे पिरान • स्थापना २०१४
+</p>
+
+</div>
+
+<div class="mt-5">
+
+<label>मोबाईल / Username</label>
+<input id="loginId"
+class="input"
+placeholder="Username">
+
+<label class="block mt-3">Password</label>
+
+<input id="loginPassword"
+type="password"
+class="input"
+placeholder="Password">
+
+<button
+onclick="login()"
+class="btn orangeBtn w-full mt-4">
+
+<i class="fa-solid fa-right-to-bracket"></i>
+Login
+
+</button>
+
+<p class="text-[11px] text-gray-500 text-center mt-3">
+Demo: admin / morya123
+</p>
+
+</div>
+
+</div>
+</div>
+
+
+<div class="app">
+
+<!-- HEADER -->
+
+<header class="header">
+
+<div class="flex items-center justify-between">
+
+<div>
+
+<h1 class="font-bold text-lg">
+🙏 मोरया ग्रुप गणपती मंडळ
+</h1>
+
+<p class="text-xs text-amber-100">
+डांबाखालचा गणपती • कवठे पिरान
+</p>
+
+</div>
+
+<button
+onclick="shareReferral()"
+class="bg-amber-400 text-black px-3 py-2 rounded-xl text-xs font-bold">
+
+<i class="fa-solid fa-user-plus"></i>
+Refer
+
+</button>
+
+</div>
+
+<div class="mt-3 bg-white/15 p-2 rounded-xl text-xs">
+
+👤 Login:
+<b id="loggedName">Admin</b>
+
+<span id="roleBadge"
+class="ml-2 bg-white/20 px-2 py-1 rounded">
+Admin
+</span>
+
+</div>
+
+</header>
+
+
+<!-- HOME -->
+
+<section id="home" class="page active">
+
+<div class="px-4">
+
+<!-- YEAR -->
+
+<div class="card flex items-center justify-between">
+
+<div>
+
+<p class="text-xs text-gray-500">
+Financial Year
+</p>
+
+<select
+id="yearSelect"
+onchange="changeYear()"
+class="font-bold text-orange border rounded-lg p-2">
+
+<option>2026-27</option>
+<option>2025-26</option>
+
+</select>
+
+</div>
+
+<button
+onclick="newYear()"
+id="newYearBtn"
+class="btn red text-xs">
+
++ नवीन वर्ष
+
+</button>
+
+</div>
+
+
+<!-- SUMMARY -->
+
+<div class="grid grid-cols-2 gap-2 mt-3">
+
+<div class="stat border-t-4 border-blue-500">
+
+<small>मागील शिल्लक</small>
+
+<b id="opening">
+₹0
+</b>
+
+</div>
+
+<div class="stat border-t-4 border-green-500">
+
+<small>एकूण जमा</small>
+
+<b id="income" class="text-green-600">
+₹0
+</b>
+
+</div>
+
+<div class="stat border-t-4 border-red-500">
+
+<small>एकूण खर्च</small>
+
+<b id="expense" class="text-red-600">
+₹0
+</b>
+
+</div>
+
+<div class="stat border-t-4 border-amber-500">
+
+<small>शिल्लक</small>
+
+<b id="balance" class="text-amber-600">
+₹0
+</b>
+
+</div>
+
+</div>
+
+
+<!-- MY DATA -->
+
+<div class="card">
+
+<h2 class="font-bold text-orange">
+👤 माझी वर्गणी
+</h2>
+
+<div class="grid grid-cols-2 gap-2 mt-3">
+
+<div class="bg-green-50 p-3 rounded-xl text-center">
+
+<small>माझी एकूण जमा</small>
+
+<b
+id="myTotal"
+class="block text-green-600 text-lg">
+₹0
+</b>
+
+</div>
+
+<div class="bg-blue-50 p-3 rounded-xl text-center">
+
+<small>Payment Count</small>
+
+<b
+id="myCount"
+class="block text-blue-600 text-lg">
+0
+</b>
+
+</div>
+
+</div>
+
+<div id="myPayments"></div>
+
+</div>
+
+
+<!-- ADMIN -->
+
+<div
+id="adminPanel"
+class="card hidden">
+
+<h2 class="font-bold text-orange mb-3">
+👑 Admin Panel
+</h2>
+
+<div class="grid grid-cols-2 gap-2">
+
+<button
+onclick="openModal('income')"
+class="btn green">
+
++ जमा
+
+</button>
+
+<button
+onclick="openModal('expense')"
+class="btn red">
+
++ खर्च
+
+</button>
+
+<button
+onclick="openModal('member')"
+class="btn orangeBtn">
+
++ Member
+
+</button>
+
+<button
+onclick="openModal('bishi')"
+class="btn bg-purple-600 text-white">
+
+💰 Bishi
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- MANDAL TOTAL -->
+
+<div class="card">
+
+<h2 class="font-bold text-orange">
+🏛️ मंडळाचा हिशोब
+</h2>
+
+<div class="row">
+
+<span>एकूण सदस्य</span>
+<b id="memberCount">0</b>
+
+</div>
+
+<div class="row">
+
+<span>एकूण जमा</span>
+<b class="text-green-600" id="mandalIncome">
+₹0
+</b>
+
+</div>
+
+<div class="row">
+
+<span>एकूण खर्च</span>
+<b class="text-red-600" id="mandalExpense">
+₹0
+</b>
+
+</div>
+
+<div class="row">
+
+<span>सध्याची शिल्लक</span>
+<b class="text-orange" id="mandalBalance">
+₹0
+</b>
+
+</div>
+
+</div>
+
+
+<!-- RECENT -->
+
+<div class="card">
+
+<h2 class="font-bold text-orange">
+📋 अलीकडील व्यवहार
+</h2>
+
+<div id="recent"></div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- MEMBERS -->
+
+<section id="members" class="page">
+
+<div class="px-4">
+
+<div class="card">
+
+<h2 class="font-bold text-orange mb-3">
+👥 मंडळाचे सदस्य
+</h2>
+
+<div id="membersList"></div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- HISTORY -->
+
+<section id="history" class="page">
+
+<div class="px-4">
+
+<div class="card">
+
+<h2 class="font-bold text-orange">
+📊 माझी Payment History
+</h2>
+
+<div id="historyList"></div>
+
+</div>
+
+<div class="card">
+
+<h2 class="font-bold text-orange">
+🏛️ मंडळाचा पूर्ण व्यवहार
+</h2>
+
+<div id="mandalHistory"></div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- BISHI -->
+
+<section id="bishi" class="page">
+
+<div class="px-4">
+
+<div class="card">
+
+<h2 class="font-bold text-orange">
+💰 Bishi / Investment
+</h2>
+
+<div class="grid grid-cols-2 gap-2 mt-3">
+
+<div class="stat">
+
+<small>गुंतवलेली रक्कम</small>
+
+<b id="invested">
+₹0
+</b>
+
+</div>
+
+<div class="stat">
+
+<small>Interest</small>
+
+<b id="interest">
+₹0
+</b>
+
+</div>
+
+</div>
+
+<div id="bishiList" class="mt-3"></div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- PROFILE -->
+
+<section id="profile" class="page">
+
+<div class="px-4">
+
+<div class="card">
+
+<h2 class="font-bold text-orange">
+👤 माझे Profile
+</h2>
+
+<div class="row">
+<span>नाव</span>
+<b id="profileName">-</b>
+</div>
+
+<div class="row">
+<span>Role</span>
+<b id="profileRole">-</b>
+</div>
+
+<div class="row">
+<span>मोबाईल</span>
+<b id="profilePhone">-</b>
+</div>
+
+<button
+onclick="logout()"
+class="btn red w-full mt-4">
+
+Logout
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- NAV -->
+
+<nav class="nav">
+
+<button
+class="active"
+onclick="page('home',this)">
+
+<i class="fa-solid fa-house"></i>
+Home
+
+</button>
+
+<button
+onclick="page('members',this)">
+
+<i class="fa-solid fa-users"></i>
+Members
+
+</button>
+
+<button
+onclick="page('history',this)">
+
+<i class="fa-solid fa-clock-rotate-left"></i>
+History
+
+</button>
+
+<button
+onclick="page('bishi',this)">
+
+<i class="fa-solid fa-coins"></i>
+Bishi
+
+</button>
+
+<button
+onclick="page('profile',this)">
+
+<i class="fa-solid fa-user"></i>
+Profile
+
+</button>
+
+</nav>
+
+</div>
+
+
+<!-- MODAL -->
+
+<div id="modal" class="modal">
+
+<div class="sheet">
+
+<div class="flex justify-between">
+
+<h2 id="modalTitle"
+class="font-bold text-orange text-lg">
+Add
+</h2>
+
+<button
+onclick="closeModal()"
+class="bg-gray-200 px-3 py-1 rounded-full">
+×
+</button>
+
+</div>
+
+<div id="modalBody" class="mt-4"></div>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =================================================
+   GOOGLE APPS SCRIPT API
+   इथे तुझा Google Apps Script URL टाक
+================================================= */
+
+const API_URL =
+"PASTE_YOUR_GOOGLE_APPS_SCRIPT_URL_HERE";
+
+
+/* =================================================
+   DEMO DATABASE
+   API जोडण्याआधी website test करण्यासाठी
+================================================= */
+
+let demoUsers = [
+
+{
+id:"admin",
+password:"morya123",
+name:"Atharv Patil",
+phone:"",
+role:"admin"
+},
+
+{
+id:"pranav",
+password:"1234",
+name:"Pranav Patil",
+phone:"9876543210",
+role:"member"
+}
+
+];
+
+
+let currentUser = null;
+let selectedYear = "2026-27";
+
+
+let data = {
+
+members:[
+{
+id:"admin",
+name:"Atharv Patil",
+phone:"",
+role:"admin"
+},
+{
+id:"pranav",
+name:"Pranav Patil",
+phone:"9876543210",
+role:"member"
+}
+],
+
+payments:[
+{
+name:"Pranav Patil",
+amount:1000,
+type:"मासिक बीशी",
+year:"2026-27",
+date:"24/08/2026",
+phone:"9876543210"
+}
+],
+
+expenses:[],
+
+bishi:[]
+
+};
+
+
+/* =================================================
+   LOGIN
+================================================= */
+
+function login(){
+
+let id =
+document.getElementById("loginId").value.trim();
+
+let password =
+document.getElementById("loginPassword").value;
+
+
+let user =
+demoUsers.find(
+u => u.id===id && u.password===password
+);
+
+
+if(!user){
+
+alert("Username किंवा Password चुकीचा आहे.");
+
+return;
+
+}
+
+
+currentUser=user;
+
+document.getElementById(
+"loginScreen"
+).style.display="none";
+
+
+document.getElementById(
+"loggedName"
+).innerText=user.name;
+
+
+document.getElementById(
+"roleBadge"
+).innerText=
+user.role==="admin"
+?"Admin":"Member";
+
+
+if(user.role==="admin"){
+
+document
+.getElementById("adminPanel")
+.classList.remove("hidden");
+
+document
+.getElementById("newYearBtn")
+.classList.remove("hidden");
+
+}
+
+
+document.getElementById(
+"profileName"
+).innerText=user.name;
+
+document.getElementById(
+"profileRole"
+).innerText=user.role;
+
+document.getElementById(
+"profilePhone"
+).innerText=user.phone || "-";
+
+
+render();
+
+}
+
+
+/* =================================================
+   PAGE
+================================================= */
+
+function page(id,btn){
+
+document
+.querySelectorAll(".page")
+.forEach(
+p=>p.classList.remove("active")
+);
+
+document
+.getElementById(id)
+.classList.add("active");
+
+
+document
+.querySelectorAll(".nav button")
+.forEach(
+b=>b.classList.remove("active")
+);
+
+btn.classList.add("active");
+
+}
+
+
+/* =================================================
+   MONEY
+================================================= */
+
+function money(n){
+
+return "₹"+
+Number(n||0).toLocaleString("en-IN");
+
+}
+
+
+/* =================================================
+   RENDER
+================================================= */
+
+function render(){
+
+let payments =
+data.payments.filter(
+p=>p.year===selectedYear
+);
+
+let expenses =
+data.expenses.filter(
+e=>e.year===selectedYear
+);
+
+
+let income =
+payments.reduce(
+(s,p)=>s+Number(p.amount),0
+);
+
+let expense =
+expenses.reduce(
+(s,e)=>s+Number(e.amount),0
+);
+
+let opening=15000;
+
+let balance =
+opening+income-expense;
+
+
+/* SUMMARY */
+
+document.getElementById(
+"opening"
+).innerText=money(opening);
+
+document.getElementById(
+"income"
+).innerText=money(income);
+
+document.getElementById(
+"expense"
+).innerText=money(expense);
+
+document.getElementById(
+"balance"
+).innerText=money(balance);
+
+
+/* MANDAL */
+
+document.getElementById(
+"mandalIncome"
+).innerText=money(income);
+
+document.getElementById(
+"mandalExpense"
+).innerText=money(expense);
+
+document.getElementById(
+"mandalBalance"
+).innerText=money(balance);
+
+document.getElementById(
+"memberCount"
+).innerText=
+data.members.length;
+
+
+/* MY DATA */
+
+let mine =
+payments.filter(
+p=>p.phone===currentUser.phone ||
+p.name===currentUser.name
+);
+
+
+let myTotal =
+mine.reduce(
+(s,p)=>s+Number(p.amount),0
+);
+
+
+document.getElementById(
+"myTotal"
+).innerText=money(myTotal);
+
+document.getElementById(
+"myCount"
+).innerText=mine.length;
+
+
+document.getElementById(
+"myPayments"
+).innerHTML=
+
+mine.length
+?
+mine.slice().reverse().map(p=>`
+
+<div class="row">
+
+<div>
+
+<b>${p.type}</b>
+
+<div class="text-[10px] text-gray-500">
+${p.date} • ${p.year}
+</div>
+
+</div>
+
+<div class="text-right">
+
+<b class="text-green-600">
++ ${money(p.amount)}
+</b>
+
+<button
+onclick="shareReceipt('${p.name}','${p.amount}','${p.type}')"
+class="block text-[10px] text-blue-600">
+
+Share Receipt
+
+</button>
+
+</div>
+
+</div>
+
+`).join("")
+:
+`<p class="text-xs text-gray-400 py-3">
+या वर्षात तुमची वर्गणी नोंदलेली नाही.
+</p>`;
+
+
+/* RECENT */
+
+document.getElementById(
+"recent"
+).innerHTML=
+
+payments.slice(-10).reverse().map(p=>`
+
+<div class="row">
+
+<div>
+<b>${p.name}</b>
+
+<div class="text-[10px] text-gray-500">
+${p.type} • ${p.date}
+</div>
+</div>
+
+<b class="text-green-600">
++ ${money(p.amount)}
+</b>
+
+</div>
+
+`).join("")
+||
+"<p class='text-xs text-gray-400'>व्यवहार नाही.</p>";
+
+
+/* MEMBERS */
+
+document.getElementById(
+"membersList"
+).innerHTML=
+
+data.members.map(m=>`
+
+<div class="row">
+
+<div>
+
+<b>${m.name}</b>
+
+<div class="text-[10px] text-gray-500">
+${m.role==="admin"?"Admin":"Member"}
+</div>
+
+</div>
+
+<div class="text-xs text-gray-500">
+${m.phone||""}
+</div>
+
+</div>
+
+`).join("");
+
+
+/* HISTORY */
+
+document.getElementById(
+"historyList"
+).innerHTML=
+
+mine.slice().reverse().map(p=>`
+
+<div class="row">
+
+<span>
+${p.type}
+<br>
+<small>${p.date}</small>
+</span>
+
+<b class="text-green-600">
+${money(p.amount)}
+</b>
+
+</div>
+
+`).join("")
+||
+"<p class='text-xs text-gray-400'>History नाही.</p>";
+
+
+/* FULL MANDAL HISTORY */
+
+let full=[];
+
+payments.forEach(p=>{
+full.push({
+name:p.name,
+type:p.type,
+amount:p.amount,
+income:true,
+date:p.date
+});
+});
+
+expenses.forEach(e=>{
+full.push({
+name:e.name,
+type:"मंडळ खर्च",
+amount:e.amount,
+income:false,
+date:e.date
+});
+});
+
+
+document.getElementById(
+"mandalHistory"
+).innerHTML=
+
+full.reverse().map(x=>`
+
+<div class="row">
+
+<div>
+<b>${x.name}</b>
+
+<div class="text-[10px] text-gray-500">
+${x.type} • ${x.date}
+</div>
+</div>
+
+<b class="${x.income?'text-green-600':'text-red-600'}">
+
+${x.income?"+":"-"}
+${money(x.amount)}
+
+</b>
+
+</div>
+
+`).join("")
+||
+"<p class='text-xs text-gray-400'>व्यवहार नाही.</p>";
+
+
+/* BISHI */
+
+let invested =
+data.bishi.reduce(
+(s,b)=>s+Number(b.amount),0
+);
+
+let interest =
+data.bishi.reduce(
+(s,b)=>s+Number(b.interestAmount),0
+);
+
+
+document.getElementById(
+"invested"
+).innerText=money(invested);
+
+document.getElementById(
+"interest"
+).innerText=money(interest);
+
+
+document.getElementById(
+"bishiList"
+).innerHTML=
+
+data.bishi.map(b=>`
+
+<div class="row">
+
+<div>
+
+<b>${b.amountName||"Bishi"}</b>
+
+<div class="text-[10px] text-gray-500">
+Interest ${b.rate}%
+</div>
+
+</div>
+
+<b class="text-purple-600">
+${money(b.interestAmount)}
+</b>
+
+</div>
+
+`).join("")
+||
+"<p class='text-xs text-gray-400'>Bishi investment नाही.</p>";
+
+}
+
+
+/* =================================================
+   MODALS
+================================================= */
+
+function openModal(type){
+
+let title="";
+let html="";
+
+
+if(type==="income"){
+
+title="🟢 वर्गणी जमा करा";
+
+html=`
+
+<label>सदस्याचे नाव</label>
+
+<input
+id="incomeName"
+class="input"
+placeholder="नाव">
+
+
+<label class="block mt-3">
+प्रकार
+</label>
+
+<select id="incomeType"
+class="input">
+
+<option>मासिक बीशी</option>
+<option>One-Time वर्गणी</option>
+
+</select>
+
+
+<label class="block mt-3">
+रक्कम
+</label>
+
+<input
+id="incomeAmount"
+type="number"
+class="input"
+placeholder="₹">
+
+
+<label class="block mt-3">
+WhatsApp नंबर
+</label>
+
+<input
+id="incomePhone"
+class="input"
+placeholder="10 digit">
+
+
+<button
+onclick="addIncome()"
+class="btn green w-full mt-4">
+
+जमा करा + Receipt Share
+
+</button>
+
+`;
+
+}
+
+
+if(type==="expense"){
+
+title="🔴 मंडळाचा खर्च";
+
+html=`
+
+<label>खर्चाचा तपशील</label>
+
+<input
+id="expenseName"
+class="input"
+placeholder="मंडप / Decoration / इ.">
+
+
+<label class="block mt-3">
+रक्कम
+</label>
+
+<input
+id="expenseAmount"
+type="number"
+class="input"
+placeholder="₹">
+
+
+<button
+onclick="addExpense()"
+class="btn red w-full mt-4">
+
+खर्च Save करा
+
+</button>
+
+`;
+
+}
+
+
+if(type==="member"){
+
+title="👤 नवीन Member";
+
+html=`
+
+<label>नाव</label>
+
+<input
+id="memberName"
+class="input"
+placeholder="पूर्ण नाव">
+
+
+<label class="block mt-3">
+मोबाईल
+</label>
+
+<input
+id="memberPhone"
+class="input"
+placeholder="10 digit">
+
+
+<button
+onclick="addMember()"
+class="btn orangeBtn w-full mt-4">
+
+Member Add करा
+
+</button>
+
+`;
+
+}
+
+
+if(type==="bishi"){
+
+title="💰 Bishi / Investment";
+
+html=`
+
+<label>Investment नाव</label>
+
+<input
+id="bishiName"
+class="input"
+placeholder="उदा. Bishi 2026">
+
+
+<label class="block mt-3">
+गुंतवणूक रक्कम
+</label>
+
+<input
+id="bishiAmount"
+type="number"
+class="input">
+
+
+<label class="block mt-3">
+Interest %
+</label>
+
+<input
+id="bishiRate"
+type="number"
+step="0.01"
+class="input"
+placeholder="उदा. 8">
+
+
+<button
+onclick="addBishi()"
+class="btn bg-purple-600 text-white w-full mt-4">
+
+Calculate + Save
+
+</button>
+
+`;
+
+}
+
+
+document.getElementById(
+"modalTitle"
+).innerText=title;
+
+document.getElementById(
+"modalBody"
+).innerHTML=html;
+
+document.getElementById(
+"modal"
+).classList.add("show");
+
+}
+
+
+function closeModal(){
+
+document
+.getElementById("modal")
+.classList.remove("show");
+
+}
+
+
+/* =================================================
+   ADD INCOME
+================================================= */
+
+function addIncome(){
+
+let name=
+document.getElementById("incomeName").value;
+
+let type=
+document.getElementById("incomeType").value;
+
+let amount=
+Number(document.getElementById("incomeAmount").value);
+
+let phone=
+document.getElementById("incomePhone").value;
+
+
+if(!name||!amount){
+
+alert("नाव आणि रक्कम भरा.");
+return;
+
+}
+
+
+let payment={
+name,
+type,
+amount,
+phone,
+year:selectedYear,
+date:new Date().toLocaleDateString("en-IN")
+};
+
+
+data.payments.push(payment);
+
+saveLocal();
+
+closeModal();
+
+render();
+
+
+shareReceipt(
+name,
+amount,
+type,
+phone
+);
+
+}
+
+
+/* =================================================
+   EXPENSE
+================================================= */
+
+function addExpense(){
+
+let name=
+document.getElementById("expenseName").value;
+
+let amount=
+Number(document.getElementById("expenseAmount").value);
+
+
+if(!name||!amount){
+
+alert("तपशील आणि रक्कम भरा.");
+return;
+
+}
+
+
+data.expenses.push({
+
+name,
+amount,
+year:selectedYear,
+date:new Date().toLocaleDateString("en-IN")
+
+});
+
+
+saveLocal();
+
+closeModal();
+
+render();
+
+}
+
+
+/* =================================================
+   MEMBER
+================================================= */
+
+function addMember(){
+
+let name=
+document.getElementById("memberName").value;
+
+let phone=
+document.getElementById("memberPhone").value;
+
+
+if(!name){
+
+alert("नाव भरा.");
+return;
+
+}
+
+
+data.members.push({
+
+id:"m"+Date.now(),
+
+name,
+phone,
+role:"member"
+
+});
+
+
+saveLocal();
+
+closeModal();
+
+render();
+
+alert("Member successfully add झाला.");
+
+}
+
+
+/* =================================================
+   BISHI
+================================================= */
+
+function addBishi(){
+
+let amount=
+Number(document.getElementById("bishiAmount").value);
+
+let rate=
+Number(document.getElementById("bishiRate").value);
+
+let name=
+document.getElementById("bishiName").value;
+
+
+if(!amount||!rate){
+
+alert("रक्कम आणि Interest % भरा.");
+return;
+
+}
+
+
+let interestAmount=
+amount*rate/100;
+
+
+data.bishi.push({
+
+amountName:name||"Bishi",
+
+amount,
+rate,
+interestAmount
+
+});
+
+
+saveLocal();
+
+closeModal();
+
+render();
+
+alert(
+"Interest: "+money(interestAmount)
+);
+
+}
+
+
+/* =================================================
+   YEAR
+================================================= */
+
+function changeYear(){
+
+selectedYear=
+document.getElementById("yearSelect").value;
+
+render();
+
+}
+
+
+function newYear(){
+
+if(!confirm(
+"नवीन Financial Year सुरू करायचे?"
+))return;
+
+
+let year=
+prompt(
+"नवीन वर्ष टाका",
+"2027-28"
+);
+
+
+if(!year)return;
+
+
+let option=
+document.createElement("option");
+
+option.textContent=year;
+
+option.value=year;
+
+document
+.getElementById("yearSelect")
+.appendChild(option);
+
+document
+.getElementById("yearSelect")
+.value=year;
+
+selectedYear=year;
+
+render();
+
+}
+
+
+/* =================================================
+   RECEIPT
+================================================= */
+
+function shareReceipt(
+name,
+amount,
+type,
+phone=""
+){
+
+let msg=
+
+`🙏 *मोरया ग्रुप गणपती मंडळ*
+*डांबाखालचा गणपती • कवठे पिरान*
+
+🧾 *वर्गणी पावती*
+
+नाव: ${name}
+प्रकार: ${type}
+जमा रक्कम: ₹${amount}
+वर्ष: ${selectedYear}
+
+गणपती बाप्पा मोरया! 🚩`;
+
+
+let url=
+phone
+?
+`https://wa.me/91${phone}?text=${encodeURIComponent(msg)}`
+:
+`https://wa.me/?text=${encodeURIComponent(msg)}`;
+
+
+window.open(url,"_blank");
+
+}
+
+
+/* =================================================
+   REFERRAL
+================================================= */
+
+function shareReferral(){
+
+let url=
+window.location.origin+
+window.location.pathname+
+"?join="+
+encodeURIComponent(
+currentUser?.name||"Member"
+);
+
+
+let msg=
+
+`🙏 जय गणेश!
+
+मोरया ग्रुप गणपती मंडळामध्ये सदस्य म्हणून सहभागी व्हा.
+
+खालील link वर जा:
+${url}
+
+गणपती बाप्पा मोरया! 🚩`;
+
+
+window.open(
+"https://wa.me/?text="+
+encodeURIComponent(msg),
+"_blank"
+);
+
+}
+
+
+/* =================================================
+   LOCAL SAVE
+================================================= */
+
+function saveLocal(){
+
+localStorage.setItem(
+"morya_demo_data",
+JSON.stringify(data)
+);
+
+}
+
+
+/* =================================================
+   LOAD
+================================================= */
+
+let saved=
+localStorage.getItem("morya_demo_data");
+
+if(saved){
+
+try{
+
+data=JSON.parse(saved);
+
+}catch(e){}
+
+}
+
+
+/* =================================================
+   LOGOUT
+================================================= */
+
+function logout(){
+
+currentUser=null;
+
+document.getElementById(
+"loginScreen"
+).style.display="flex";
+
+}
+
+
+/* =================================================
+   START
+================================================= */
+
+</script>
+
+</body>
+</html>
